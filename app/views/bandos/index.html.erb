@@ -31,9 +31,23 @@
                 <% end %>
               </div>
               <div class="level-item likes">
-                <%= link_to '' do %>
-                  <span class="icon"><i class="fa fa-heart"></i></span>
-                  <span class="vote_count">0</span>
+                <% if user_signed_in? %>
+                    <% if current_user.liked? bando %>
+                        <%= link_to unlike_bando_path(bando), method: :put, class: "unlike_bando" do %>
+                          <span class="icon"><i class="fa fa-heart has-text-primary"></i></span>
+                          <span class="vote_count"><%= bando.get_likes.size %></span>
+                        <% end %>
+                    <% else%>
+                        <%= link_to like_bando_path(bando), method: :put, class: "like_bando" do %>
+                            <span class="icon"><i class="fa fa-heart"></i></span>
+                            <span class="vote_count"><%= bando.get_likes.size %></span>
+                        <% end %>
+                    <% end %>
+                <% else %>
+                    <%= link_to like_bando_path(bando), method: :put, class: "like_bando" do %>
+                        <span class="icon"><i class="fa fa-heart"></i></span>
+                        <span class="vote_count"><%= bando.get_likes.size %></span>
+                    <% end %>
                 <% end %>
               </div>
             </div>

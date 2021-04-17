@@ -3,4 +3,5 @@ class Bando < ApplicationRecord
   mount_uploader :user_bando, UserBandoUploader
   has_many :comments, dependent: :destroy
   is_impressionable
+  acts_as_votable
 end

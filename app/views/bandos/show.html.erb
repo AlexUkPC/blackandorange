@@ -55,8 +55,24 @@
             <%= pluralize(@bando.comments.count, 'Comment')%>
           </div>
           <div class="panel-block likes data">
-            <span class="icon"><i class="fa fa-heart"></i></span>
-            0
+            <% if user_signed_in? %>
+                <% if current_user.liked? @bando %>
+                    <%= link_to unlike_bando_path(@bando), method: :put, class: "unlike_bando" do %>
+                        <span class="icon"><i class="fa fa-heart has-text-primary"></i></span>
+                        <span class="vote_count"><%= pluralize(@bando.get_likes.size, 'Like') %></span>
+                    <% end %>
+                <% else%>
+                    <%= link_to like_bando_path(@bando), method: :put, class: "like_bando" do %>
+                        <span class="icon"><i class="fa fa-heart"></i></span>
+                        <span class="vote_count"><%= pluralize(@bando.get_likes.size, 'Like') %></span>
+                    <% end %>
+                <% end %>
+            <% else %>
+                <%= link_to like_bando_path(@bando), method: :put, class: "like_bando" do %>
+                    <span class="icon"><i class="fa fa-heart"></i></span>
+                    <span class="vote_count"><%= pluralize(@bando.get_likes.size, 'Like') %></span>
+                <% end %>
+            <% end %>
           </div>
         </div>
       </div>

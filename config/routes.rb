@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :bandos do
     resource :comments
+    member do
+      put 'like', to: "bandos#like"
+      put 'unlike', to: "bandos#unlike"
+    end
   end
   devise_for :users, controllers:{registrations:'registrations'}	
   root 'bandos#index'
