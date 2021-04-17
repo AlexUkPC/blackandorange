@@ -1,12 +1,53 @@
-<p>
-  <strong>Title:</strong>
-  <%= @bando.title %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @bando.description %>
-</p>
-
-<%= link_to 'Edit', edit_bando_path(@bando) %> |
-<%= link_to 'Back', bandos_path %>
+<section class="section">
+  <div class="container">
+    <h1 class="title is-3"><%= @bando.title %></h1>
+    <div class="columns">
+      <div class="column is-8">
+        <span class="by has-text-grey-light">by</span>
+        <div class="user-thumb">
+          <%= gravatar_image_tag(@bando.user.email.gsub('spam', 'mdeering'), alt: @bando.user.name, :gravatar => { :secure => true, :size => 20 }); %>
+        </div>
+        <div class="user-name has-text-weight-bold"><%= @bando.user.name %></div>
+        <div class="bando-time">
+          <span class="has-text-grey-light">posted</span>
+          <span class="has-text-weight-semibold"><%= verbose_date(@bando.created_at)%></span>
+        </div>
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column is-8">
+        <div class="bando-container">
+          <div class="bando-full">
+            <%= image_tag @bando.user_bando_url unless @bando.user_bando.blank? %>
+          </div>
+          <% if user_signed_in? && (current_user.id == @bando.user_id)%>
+            <div class="buttons has-addons">
+              <%= link_to 'Edit', edit_bando_path(@bando), class: "button" %>
+              <%= link_to 'Delete', bando_path, class: "button is-danger", method: :delete, data: {confirm: 'Are you sure you want to delete this bando?'} %>
+            </div>
+          <% end %>
+          <div class="content">
+            <%= @bando.description %>
+          </div>
+        </div>
+      </div>
+      <div class="column is-3 is-offset-1">
+        <div class="nav panel show-bando-analytics">
+          <div class="panel-block views data">
+            <span class="icon"><i class="fa fa-eye"></i></span>
+            0 Views
+          </div>
+          <div class="panel-block comments data">
+            <span class="icon"><i class="fa fa-comment"></i></span>
+            0
+            <%#= pluralize(@bando.comments.count, 'Comment')%>
+          </div>
+          <div class="panel-block likes data">
+            <span class="icon"><i class="fa fa-heart"></i></span>
+            0
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

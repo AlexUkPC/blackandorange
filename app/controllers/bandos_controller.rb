@@ -1,9 +1,9 @@
 class BandosController < ApplicationController
   before_action :set_bando, only: %i[ show edit update destroy ]
-
+  before_action :authenticate_user!, only: [:edit, :update, :destroy]
   # GET /bandos or /bandos.json
   def index
-    @bandos = Bando.all
+    @bandos = Bando.all.order('created_at DESC')
   end
 
   # GET /bandos/1 or /bandos/1.json
@@ -12,7 +12,7 @@ class BandosController < ApplicationController
 
   # GET /bandos/new
   def new
-    @bando = Bando.new
+    @bando = current_user.bandos.build
   end
 
   # GET /bandos/1/edit
@@ -21,7 +21,7 @@ class BandosController < ApplicationController
 
   # POST /bandos or /bandos.json
   def create
-    @bando = Bando.new(bando_params)
+    @bando = current_user.bandos.build(bando_params)
 
     respond_to do |format|
       if @bando.save
@@ -64,6 +64,6 @@ class BandosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def bando_params
-      params.require(:bando).permit(:title, :description, :user_id)
+      params.require(:bando).permit(:title, :description, :user_bando)
     end
 end
