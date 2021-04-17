@@ -10,7 +10,7 @@
                 <h3 class="bando-title"><%= bando.title %></h3>
                 <div class="bando-description"><%= truncate(bando.description, length: 60) %></div>
                 <div class="bando-time">
-                  <%= time_ago_in_words(bando.created_at) %>
+                  <%= time_ago_in_words(bando.created_at) %> ago
                 </div>
               </div>
           <% end %>
@@ -56,7 +56,7 @@
         </div>
         <div class="user-data">
           <div class="user-thumb">
-            <%= gravatar_image_tag(bando.user.email.gsub('spam', 'mdeering'),alt: bando.user.name, :gravatar => { :secure => true, :size => 20 }); %>
+            <%= gravatar_image_tag(bando.user.email.gsub('spam', 'mdeering'),alt: bando.user.name, :gravatar => { :secure => true, :size => 20 , :d => "mp"}); %>
           </div>
           <div class="user-name"><%= bando.user.name %></div>
         </div>

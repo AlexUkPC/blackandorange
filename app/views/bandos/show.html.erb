@@ -5,7 +5,7 @@
       <div class="column is-8">
         <span class="by has-text-grey-light">by</span>
         <div class="user-thumb">
-          <%= gravatar_image_tag(@bando.user.email.gsub('spam', 'mdeering'), alt: @bando.user.name, :gravatar => { :secure => true, :size => 20 }); %>
+          <%= gravatar_image_tag(@bando.user.email.gsub('spam', 'mdeering'), alt: @bando.user.name, :gravatar => { :secure => true, :size => 20, :d => "mp"}); %>
         </div>
         <div class="user-name has-text-weight-bold"><%= @bando.user.name %></div>
         <div class="bando-time">
