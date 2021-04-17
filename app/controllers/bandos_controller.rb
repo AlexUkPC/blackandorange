@@ -1,6 +1,7 @@
 class BandosController < ApplicationController
   before_action :set_bando, only: %i[ show edit update destroy ]
   before_action :authenticate_user!, only: [:edit, :update, :destroy]
+  impressionist actions:[:show], unique: [:impressionable_type, :impressionable_id, :session_hash]
   # GET /bandos or /bandos.json
   def index
     @bandos = Bando.all.order('created_at DESC')
