@@ -1,10 +1,11 @@
+<%= render 'hero' %>
 <section class="section">
   <div class="bandos">
     <% @bandos.each do |bando| %>
       <div class="bando-grid-item">
         <div class="bando-wrapper">
           <%= link_to bando, class:"bando" do %>
-              <%= image_tag(bando.user_bando_url)%>
+              <%= bando.user_bando.blank? ? image_tag("") : image_tag(bando.user_bando_url) %>
               <div class="bando-data">
                 <h3 class="bando-title"><%= bando.title %></h3>
                 <div class="bando-description"><%= truncate(bando.description, length: 60) %></div>

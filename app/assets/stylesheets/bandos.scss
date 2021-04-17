@@ -10,6 +10,10 @@
     border-radius: 2px;
     padding: 10px;
     background: white;
+    img {
+      height: 25vh;
+      object-fit: cover;
+    }
   }
   .bandos{
     display: grid;
