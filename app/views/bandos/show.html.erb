@@ -28,6 +28,19 @@
           <% end %>
           <div class="content">
             <%= @bando.description %>
+            <section class="comments">
+              <h2 class="subtitle is-5"><%= pluralize(@bando.comments.count, 'Comment')%></h2>
+              <%= render @bando.comments %>
+              <hr/>
+              <% if user_signed_in? %>
+                  <div class="comment-form">
+                    <h3 class="subtitle is-3">Leave a reply</h3>
+                    <%= render 'comments/form' %>
+                  </div>
+              <% else%>
+                <div class="content"><%= link_to 'Sign In', new_user_session_path %> to leave a comment.</div>
+              <% end %>
+            </section>
           </div>
         </div>
       </div>
@@ -39,8 +52,7 @@
           </div>
           <div class="panel-block comments data">
             <span class="icon"><i class="fa fa-comment"></i></span>
-            0
-            <%#= pluralize(@bando.comments.count, 'Comment')%>
+            <%= pluralize(@bando.comments.count, 'Comment')%>
           </div>
           <div class="panel-block likes data">
             <span class="icon"><i class="fa fa-heart"></i></span>
